@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>天気アプリ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+    <h1>天気アプリ</h1>
+
+    <form method="post">
+        <input type="text" name="city" placeholder="都市名">
+        <button type="submit">検索</button>
+    </form>
+
+    {% if weather %}
+        {% if weather is string %}
+            <p>{{ weather }}</p>
+        {% else %}
+            <h2>{{ weather.city }}</h2>
+            <p>{{ weather.temp }} ℃</p>
+            <p>{{ weather.desc }}</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
