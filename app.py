@@ -9,7 +9,26 @@ API_KEY = "4e7ab31ea70dbad2863764144216327a"
 def index():
     weather = None
 
-    if request.method == "POST":
+    # ★現在地（GET）
+    lat = request.args.get("lat")
+    lon = request.args.get("lon")
+
+    if lat and lon:
+        url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric&lang=ja"
+        response = requests.get(url)
+        data = response.json()
+
+        if data.get("cod") != 200:
+            weather = "現在地の天気が取得できません"
+        else:
+            weather = {
+                "city": data["name"],
+                "temp": data["main"]["temp"],
+                "desc": data["weather"][0]["description"]
+            }
+
+    # ★都市検索（POST）
+    elif request.method == "POST":
         city = request.form["city"]
 
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=ja"

@@ -8,6 +8,23 @@
 <body>
     <h1>たかはしドットコム</h1>
 
+
+    <button onclick="getLocation()">現在地の天気</button>
+
+<script>
+function getLocation() {
+  navigator.geolocation.getCurrentPosition((position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    // Flaskに送る
+    window.location.href = `/weather?lat=${lat}&lon=${lon}`;
+  }, () => {
+    alert("位置情報が取得できません");
+  });
+}
+</script>
+
     <form method="post">
         <input type="text" name="city" placeholder="都市名">
         <button type="submit">検索</button>
