@@ -1,11 +1,8 @@
 from flask import Flask, request, render_template
 import requests
 
-from googletrans import Translator
 
 app = Flask(__name__)
-
-translator = Translator()
 
 API_KEY = "4e7ab31ea70dbad2863764144216327a"
 
