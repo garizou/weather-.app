@@ -34,10 +34,10 @@ def index():
     # ★都市検索（POST）
     elif request.method == "POST":
         # 日本語 → 英語に翻訳
-        translated = translator.translate(city, src="ja", dest="en")
-        city_en = translated.text
+        city = request.form["city"]
 
-        url = furl = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid={API_KEY}&units=metric&lang=ja"
+
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=ja"
         response = requests.get(url)
         data = response.json()
         
