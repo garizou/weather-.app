@@ -1,7 +1,11 @@
 from flask import Flask, request, render_template
 import requests
 
+from googletrans import Translator
+
 app = Flask(__name__)
+
+translator = Translator()
 
 API_KEY = "4e7ab31ea70dbad2863764144216327a"
 
@@ -29,9 +33,11 @@ def index():
 
     # ★都市検索（POST）
     elif request.method == "POST":
-        city = request.form["city"]
+        # 日本語 → 英語に翻訳
+        translated = translator.translate(city, src="ja", dest="en")
+        city_en = translated.text
 
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=ja"
+        url = furl = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid={API_KEY}&units=metric&lang=ja"
         response = requests.get(url)
         data = response.json()
         
