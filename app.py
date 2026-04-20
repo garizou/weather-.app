@@ -16,7 +16,7 @@ def index():
 
     if request.method == "POST":
         city = request.form["city"]
-        
+
         url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric&lang=ja"
         response = requests.get(url)
         data = response.json()
@@ -29,11 +29,10 @@ def index():
                 "temp": data["main"]["temp"],
                 "desc": data["weather"][0]["description"]
             }
-
-    # ★都市検索（POST）
-    elif request.method == "POST":
-        # 日本語 → 英語に翻訳
-        city = request.form["city"]
+            
+    else:
+        lat = request.args.get("lat")
+        lon = request.args.get("lon")
 
 
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=ja"
