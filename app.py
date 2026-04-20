@@ -14,7 +14,9 @@ def index():
     lat = request.args.get("lat")
     lon = request.args.get("lon")
 
-    if lat and lon:
+    if request.method == "POST":
+        city = request.form["city"]
+        
         url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric&lang=ja"
         response = requests.get(url)
         data = response.json()
